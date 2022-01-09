@@ -17,19 +17,19 @@ public class LogoutController {
 	
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public String kakaoLogout(@RequestParam("accessToken")String accessToken) {
-		System.out.println("·Î±×¾Æ¿ô controller µ¿ÀÛ Áß");
+		System.out.println("ë¡œê·¸ì•„ì›ƒ controller ë™ì‘ ì¤‘");
 		 String reqURL ="https://kapi.kakao.com/v1/user/logout";
 	        try {
 	            URL url = new URL(reqURL);
 	            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	            conn.setRequestMethod("POST");
-	            //conn.setRequestProperty("charset", "utf-8"); //ÀÎÄÚµù ¼³Á¤ ÇÊ¿äÇÏ¸é ÇÏ±â
+	            //conn.setRequestProperty("charset", "utf-8"); //ì¸ì½”ë”© ì„¤ì • í•„ìš”ì‹œ
 	            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 	            int responseCode = conn.getResponseCode();
 	            System.out.println("responseCode : " + responseCode);
 	 
 	            if(responseCode ==400)
-	                throw new RuntimeException("Ä«Ä«¿À ·Î±×¾Æ¿ô µµÁß ¿À·ù ¹ß»ı");
+	                throw new RuntimeException("ì¹´ì¹´ì˜¤ ë¡œê·¸ì•„ì›ƒ ë„ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
 	            
 	            
 	            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -39,7 +39,7 @@ public class LogoutController {
 	            while ((br_line = br.readLine()) != null) {
 	                result += br_line;
 	            }
-	            System.out.println("°á°ú");
+	            System.out.println("ê²°ê³¼");
 	            System.out.println(result);
 	        }catch(IOException e) {
 	            

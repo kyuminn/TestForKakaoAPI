@@ -36,7 +36,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/loginCallBack", method=RequestMethod.GET)
 	public String loginProc(@RequestParam("code")String code,Model model) {
-		System.out.println("¿©±â±îÁö ¿È");
+		System.out.println("ì—¬ê¸°ê¹Œì§€ ì˜´");
 		System.out.println(code);
 		String accessToken = getAccessToken(code);
 		System.out.println(accessToken);
@@ -53,7 +53,7 @@ public class LoginController {
 		return "/main";
 	}
 	
-	//ÅäÅ« °ª °¡Á®¿À±â
+	//í† í° ê°’ ê°€ì ¸ì˜¤ê¸°
 	public String getAccessToken(String code) {
 		String access_Token="";
 		String refresh_Token="";
@@ -62,9 +62,9 @@ public class LoginController {
 		try {
 			URL url = new URL(reqURL);
 			HttpURLConnection connection =(HttpURLConnection)url.openConnection();
-			//HttpURLConnection °´Ã¼¸¦ ÅëÇØ url¿¡ °ªÀ» ÀÔ/Ãâ·Â ÇÒ ¼ö ÀÖÀ½
+			//HttpURLConnection ê°ì²´ë¥¼ í†µí•´ urlì— ê°’ì„ ì…/ì¶œë ¥ í•  ìˆ˜ ìˆìŒ
 			connection.setRequestMethod("POST");
-			//POST¿äÃ» ½Ã ÇÊ¿äÇÑ ¼³Á¤
+			//POSTìš”ì²­ ì‹œ í•„ìš”í•œ ì„¤ì •
 			connection.setDoOutput(true);
 			
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
@@ -77,7 +77,7 @@ public class LoginController {
 			bw.write(builder.toString());
 			bw.flush();
 			
-			// ¿äÃ»À» ÅëÇØ ¾òÀº json Å¸ÀÔÀÇ  Response ¸Ş½ÃÁö ÀĞ¾î¿À±â
+			// ìš”ì²­ì„ í†µí•´ ì–»ì€ json íƒ€ì…ì˜  Response ë©”ì‹œì§€ ì½ì–´ì˜¤ê¸°
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String line="";
 			String result="";
@@ -88,8 +88,9 @@ public class LoginController {
 			
 			System.out.println("responseBody"+result);
 			
-			//Gson ¶óÀÌºê·¯¸®¿¡ Æ÷ÇÔµÈ Å¬·¡½º·Î json µ¥ÀÌÅÍ ÀĞ¾îµéÀÌ±â
+			//Gson ë¼ì´ë¸ŒëŸ¬ë¦¬ì— í¬í•¨ëœ í´ë˜ìŠ¤ë¡œ json ë°ì´í„° ì½ì–´ë“¤ì´ê¸°
 			JsonElement element = JsonParser.parseString(result);
+			//json data ì½ì–´ë“¤ì‰ê¸°
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
 			br.close();
@@ -101,7 +102,7 @@ public class LoginController {
 		return access_Token;
 	}
 	
-	// À¯Àú Á¤º¸ Á¶È¸
+	// ìœ ì € ì •ë³´ ì¡°íšŒ
 	public HashMap<String,Object> getUserInfo(String accessToken){
 		HashMap<String,Object> userInfo= new HashMap<String,Object>();
 		String reqURL="https://kapi.kakao.com/v2/user/me";
@@ -110,10 +111,10 @@ public class LoginController {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			
-			//¿äÃ» Çì´õ¿¡ Æ÷ÇÔµÇ¾ß ÇÏ´Â ³»¿ë
+			//ìš”ì²­ í—¤ë”ì— í¬í•¨ë˜ì•¼ í•˜ëŠ” ë‚´ìš©
 			conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 			
-			// ÀÀ´ä ³»¿ë ÀĞ¾î¿À±â
+			// ì‘ë‹µ ë‚´ìš© ì½ì–´ì˜¤ê¸°
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),StandardCharsets.UTF_8));
 
 	            String line = "";

@@ -19,5 +19,7 @@
 	<c:if test="${empty accessToken }">
 		<a href="${reqUrl }"><img src="resources/kakao_login.png"></a>
 	</c:if>
+	<br><br>
+	<input type="button" onclick="document.location.href='${pageContext.request.contextPath}/summerNote/upload'" value="글 등록">
 </body>
 </html>
