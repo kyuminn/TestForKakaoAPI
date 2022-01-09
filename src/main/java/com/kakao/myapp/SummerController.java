@@ -15,7 +15,7 @@ public class SummerController {
 		return "summer";
 	}
 	
-	@RequestMapping(value="/summerNote/detail", method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/summerNote/detail", method=RequestMethod.POST)
 //	@ResponseBody
 	public String detail(@RequestParam("content")String content,Model model) {
 		System.out.println("detail() 작동 중");
